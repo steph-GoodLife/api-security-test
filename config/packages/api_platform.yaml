@@ -4,6 +4,12 @@ api_platform:
         json: [ 'application/json' ]
         html: [ 'text/html' ]
         jsonhal: [ 'application/hal+json' ]
+    swagger: 
+        api_keys:
+        # overridden in OpenApiFactoryDecorator
+            access_token:
+                name: Authorization
+                type: header
 
     #enable_docs: false
     #enable_entrypoint: false
