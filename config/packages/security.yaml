@@ -11,7 +11,8 @@ security:
                 property: email
     
     role_hierarchy:
-    ROLE_FULL_USER: [ROLE_USER_EDIT, ROLE_TREASURE_CREATE, ROLE_TREASURE_EDIT]
+        ROLE_FULL_USER: [ROLE_USER_EDIT, ROLE_TREASURE_CREATE, ROLE_TREASURE_EDIT]
+        
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
