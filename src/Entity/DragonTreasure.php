@@ -36,8 +36,11 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         ),
         new GetCollection(),
         new Post(security: 'is_granted("ROLE_TREASURE_CREATE")'),
-        new Put(security: 'is_granted("ROLE_TREASURE_EDIT")'),
-        new Patch(security: 'is_granted("ROLE_TREASURE_EDIT")'),
+        //new Put(security: 'is_granted("ROLE_TREASURE_EDIT")'),
+        new Patch(
+            security: 'is_granted("ROLE_TREASURE_EDIT") and object.getOwner() == user',
+            securityPostDenormalize: 'object.getOwner() == user',
+        ),
         new Delete(security: 'is_granted("ROLE_AMIN")')
     ],
     formats: [
@@ -54,6 +57,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         'groups' => ['treasure:write'],
     ],
     paginationItemsPerPage: 10,
+    extraProperties: [
+        'standard_put' => true,
+    ]
 )]
 #[ApiResource(
     uriTemplate: '/users/{user_id}/treasures.{_format}',
@@ -67,6 +73,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
     ],
     normalizationContext: [
         'groups' => ['treasure:read'],
+    ],
+    extraProperties: [
+        'standard_put' => true,
     ],
 )]
 #[ApiFilter(PropertyFilter::class)]
